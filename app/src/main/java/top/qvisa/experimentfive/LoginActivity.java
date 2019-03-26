@@ -29,7 +29,6 @@ public class LoginActivity extends AppCompatActivity {
         mEditText_Password = findViewById(R.id.et_password);
         mCheckBox_rememberPass = findViewById(R.id.cb_remember_pass);
         mButton_Login = findViewById(R.id.bt_login);
-
         boolean isRemember = mPref.getBoolean("remember_password", false);
         if (isRemember) {
             String account = mPref.getString("account", "");
@@ -43,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String account = mEditText_Account.getText().toString();
                 String password = mEditText_Password.getText().toString();
-               if (account.equals("admin") && password.equals("123456")) {
+                if (account.equals("admin") && password.equals("123456")) {
                     mPref_Editor = mPref.edit();
                     if (mCheckBox_rememberPass.isChecked()) {
                         mPref_Editor.putBoolean("remember_password", true);
@@ -56,8 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                }
-                 {
+                } else {
                     Toast.makeText(LoginActivity.this, "Account or Password is invalid", Toast.LENGTH_SHORT).show();
                 }
             }
