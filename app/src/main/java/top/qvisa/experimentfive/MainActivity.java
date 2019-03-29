@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         init();
     }
 
-    private void init_recyclerview() {
+    private void init_recyclerView() {
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
         mRecyclerView_query.setLayoutManager(linearLayoutManager);
         Myadapter myadapter =new Myadapter(this,mList_staff);
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_query:
                 dao.query(mList_staff);
-                init_recyclerview();
+                init_recyclerView();
         }
     }
 
