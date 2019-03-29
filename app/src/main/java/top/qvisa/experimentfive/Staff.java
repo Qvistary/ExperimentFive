@@ -4,9 +4,9 @@ public class Staff {
     public String name;
     public String sex;
     public String department;
-    public String salary;
+    public float salary;
 
-    public Staff(String name,String sex,String department,String salary)
+    public Staff(String name,String sex,String department,Float salary)
     {
         this.name= name;
         this.sex = sex;
@@ -26,8 +26,13 @@ public class Staff {
         return name;
     }
 
-    public String getSalary() {
+    public float getSalary() {
         return salary;
+    }
+
+    public String getSalary_String() {
+        String salary_string = Float.toString(salary);
+        return salary_string;
     }
 }
 
