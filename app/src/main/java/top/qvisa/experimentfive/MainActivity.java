@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Staff> mList_staff = new ArrayList<>();
 
 
-    DAO dao = new DAO(this);
+
 
     @Override
 
@@ -46,9 +45,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init_recyclerView() {
-        LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView_query.setLayoutManager(linearLayoutManager);
-        Myadapter myadapter =new Myadapter(this,mList_staff);
+        Myadapter myadapter = new Myadapter(this, mList_staff);
         mRecyclerView_query.setAdapter(myadapter);
     }
 
@@ -85,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        DAO dao = new DAO(this);
         switch (v.getId()) {
             default:
             case R.id.bt_create_table:
@@ -108,13 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_query:
                 dao.query(mList_staff);
                 init_recyclerView();
+                break;
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d("onCreateOptionsMenu","onCreateOptionsMenu OK");
-        getMenuInflater().inflate(R.menu.menu_1,menu);
-        return true;
     }
 }

@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.List;
 
 public class DAO {
+
     private final MyDatabaseHelper mDb;
 
     public DAO(Context context) {
@@ -58,6 +59,7 @@ public class DAO {
     public void query(List<Staff> mList_staff) {
         SQLiteDatabase db = mDb.getWritableDatabase();
         Cursor cursor = db.query("staff", null, null, null, null, null, null);
+        mList_staff.clear();
         if (cursor.moveToFirst()) {
             do {
                 String name = cursor.getString(cursor.getColumnIndex("name"));

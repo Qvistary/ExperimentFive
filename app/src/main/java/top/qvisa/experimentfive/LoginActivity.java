@@ -1,5 +1,6 @@
 package top.qvisa.experimentfive;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,6 +13,13 @@ import android.widget.EditText;
 import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
 public class LoginActivity extends AppCompatActivity {
     private EditText mEditText_Account;
     private EditText mEditText_Password;
@@ -19,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox mCheckBox_rememberPass;
     private SharedPreferences mPref;
     private SharedPreferences.Editor mPref_Editor;
+    private Button mButton_sve;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         mEditText_Password = findViewById(R.id.et_password);
         mCheckBox_rememberPass = findViewById(R.id.cb_remember_pass);
         mButton_Login = findViewById(R.id.bt_login);
+        mButton_sve = findViewById(R.id.bt_save);
         boolean isRemember = mPref.getBoolean("remember_password", false);
         if (isRemember) {
             String account = mPref.getString("account", "");
@@ -60,6 +70,36 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        mButton_sve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String account = mEditText_Account.getText().toString();
+                String password = mEditText_Password.getText().toString();
+                save(account,password);
+            }
+        });
+    }
+    public void save(String account,String password){
+        FileOutputStream out = null;
+        BufferedWriter writer = null;
+        try{
+            out = openFileOutput("data.INI", Context.MODE_PRIVATE);
+            writer = new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(account);
+            writer.write(password);
+            Toast.makeText(this,"Save successfully",Toast.LENGTH_SHORT).show();
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (writer != null){
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
     }
 }
